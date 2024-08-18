@@ -9,20 +9,32 @@
 
     <TextView
         android:id="@+id/appTitle"
-        android:layout_width="190dp"
-        android:layout_height="28dp"
-        android:text="Hello World!"
+        android:layout_width="117dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_marginHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/appTitle"/>
+
     <ScrollView
-        android:layout_width="410dp"
-        android:layout_height="688dp"
+        android:layout_width="408dp"
+        android:layout_height="638dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appTitle">
+        app:layout_constraintTop_toBottomOf="@+id/searchBar">
 
         <LinearLayout
             android:id="@+id/countriesList"
@@ -34,8 +46,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appTitle"
-            app:layout_constraintVertical_bias="0.061" >
-        </LinearLayout>
+            app:layout_constraintVertical_bias="0.061"></LinearLayout>
     </ScrollView>
 
 

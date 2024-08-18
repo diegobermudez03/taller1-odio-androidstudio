@@ -1,5 +1,7 @@
 package com.compumovil.taller_1.services.entities
 
+import java.io.Serializable
+
 data class Country (
     val name: String,
     val alpha2Code : String,
@@ -15,5 +17,5 @@ data class Country (
     val currency : Currency,
     val flag : String,
     val flagPng : String
-    ){
+    ): Serializable{
 }
