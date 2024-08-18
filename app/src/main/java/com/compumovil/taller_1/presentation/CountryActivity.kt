@@ -20,7 +20,7 @@ class CountryActivity : AppCompatActivity(){
         binding = ActivityCountryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //getting country selected
+        //getting country selected from what was sent in the intent
         val country: Country = intent.getSerializableExtra("COUNTRY") as Country
 
         //configuring app bar and back button
@@ -32,13 +32,14 @@ class CountryActivity : AppCompatActivity(){
         supportActionBar?.title = country.name
 
         //setting action to call button
-        binding.callButton.setOnClickListener({
+        binding.callButton.setOnClickListener {
+            //using intent to go to dial page on cellphone
             val prefix = "tel:${country.numericCode}"
             startActivity(Intent(Intent.ACTION_DIAL).apply {
                 data = Uri.parse(prefix)
             })
 
-        })
+        }
 
         //setting the flag image
         Glide.with(this)

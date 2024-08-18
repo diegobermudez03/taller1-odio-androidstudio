@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="presentation.CountryActivity">>
 
+    <!--here we use resources of color, and of drawable for the back button-->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/appBar"
         android:textAlignment="center"
@@ -17,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/back" />
 
+    <!--here we use resources of color, and of drawable for the calling button-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/callButton"
         android:layout_width="wrap_content"

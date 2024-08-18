@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //this function is called to print the countries on the linear layout
     fun printCountries(countries: List<Country>, searched : String?, list: LinearLayout) {
         //to re print from scratch and not accumulate
         list.removeAllViews()
@@ -88,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             card.radius = 20f
             card.cardElevation = 12f
             card.setContentPadding(20, 50, 20, 50)
-            card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.card))
+            card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.card)) //usage of resources
 
             //create linear layout that will be inside card
             val cardContent : LinearLayout = LinearLayout(this)
@@ -103,16 +104,16 @@ class MainActivity : AppCompatActivity() {
             val countryName : TextView = TextView(this)
             countryName.text = c.name
             countryName.textSize = 24f
-            countryName.setTextColor(Color.WHITE)
+            countryName.setTextColor(ContextCompat.getColor(this, R.color.white))   //usage of resources
             countryName.gravity = Gravity.CENTER_HORIZONTAL
 
             //create text for region
             val countryRegion : TextView = TextView(this)
             countryRegion.text = "${c.subRegion}  -  ${c.region}"
-            countryRegion.textSize = 20f
+            countryRegion.textSize = 24f
             countryRegion.setTypeface(null, Typeface.ITALIC)
             countryRegion.setPadding(20,20,0,0)
-            countryRegion.setTextColor(Color.WHITE)
+            countryRegion.setTextColor(ContextCompat.getColor(this, R.color.white))
 
 
 
@@ -122,8 +123,10 @@ class MainActivity : AppCompatActivity() {
             card.addView(cardContent)
             list.addView(card)
 
+            //using intent for starting new screen activity
             card.setOnClickListener({
                 val intent = Intent(this, CountryActivity::class.java)
+                //sending info with put extra
                 intent.putExtra("COUNTRY", c)
                 startActivity(intent)
             })

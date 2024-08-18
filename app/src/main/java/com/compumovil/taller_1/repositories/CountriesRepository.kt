@@ -16,8 +16,15 @@ import java.lang.reflect.Type
 
 class CountriesRepository: IRepository {
 
+    //custom deserializer, it's how we will deserialize each object inside the
+    //json array, since, we won't simply translate the data to an exact model of that object
+    //but we will apply some logic for the deserialization, for instance, separating currency and
+    //country
     class CustomDeserializer: JsonDeserializer<Country> {
+        //map to keep track of the currencies so that if two countries manage the same currency
+        //then they will reference the same one
         private val currencies = HashMap<String, Currency>()
+
         override fun deserialize(
             json: JsonElement,
             typeOfT: Type?,
@@ -26,6 +33,7 @@ class CountriesRepository: IRepository {
             val jsonObject = json.asJsonObject
             var currency: Currency? = null
             val currencyCode: String = jsonObject.get("CurrencyCode").asString
+            //checking if the currency already exists, if it does, reference that, if not, create a new one
             if(currencies.get(currencyCode) != null) currency = currencies.get(currencyCode)
             else{
                 currency = Currency(
@@ -35,6 +43,9 @@ class CountriesRepository: IRepository {
                     );
                 currencies.put(currency.code, currency)
             }
+
+            //deserialization, for some fields, which in the json where either null or empty we had
+            //to apply some validation
             return Country(
                 jsonObject.get("Name").asString,
                 jsonObject.get("Alpha2Code").asString,
@@ -54,17 +65,23 @@ class CountriesRepository: IRepository {
         }
     }
 
+    //method for fetching countries
     override fun fetchCountries(assets: AssetManager): List<Country> {
         try {
+            //opening the json file and getting all the bytes into a inputStream
             val inputStream = assets.open("countries/data.json")
             val size = inputStream.available()
             val buffer = ByteArray(size)
             inputStream.read(buffer)
             inputStream.close()
             val jsonData =  String(buffer, charset("UTF-8"))
+
+            //first we will get only the countries attribute, the array one, it's the one we will work with
             val jsonElement: JsonElement = JsonParser.parseString(jsonData)
             val jsonObject: JsonObject = jsonElement.asJsonObject
             val jsonArray = jsonObject.getAsJsonArray("Countries")
+
+            //once we get the json array, we apply the deserializacion with Gson and the custom deserializer, and we return that data
             val gson = GsonBuilder().registerTypeAdapter(Country::class.java, CustomDeserializer()).create()
             return gson.fromJson(jsonArray, Array<Country>::class.java).toList()
         }catch (e:Exception){
