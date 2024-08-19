@@ -13,10 +13,10 @@
         app:flow_horizontalAlign="center"
         app:titleTextColor="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:background="@color/app_bar"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/back" />
+        app:navigationIcon="@drawable/back_vector" />
 
     <!--here we use resources of color, and of drawable for the calling button-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
